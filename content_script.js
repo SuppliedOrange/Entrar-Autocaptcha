@@ -5,9 +5,8 @@ function walk(node) {
     switch (node.nodeType) {
             
         // You can find the nodeTypes here if u wanna know what these mean: https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
-        case 1:
-        case 9:
-        case 11: 
+            
+        case 1: // Since it is inside a <div>, we have to use nodeType 1 to convert it
             child = node.firstChild;
             while (child) {
                 next = child.nextSibling;
@@ -15,7 +14,7 @@ function walk(node) {
                 child = next;
             }
             break;
-        case 3:
+        case 3: // If plain text, perform handleText()
             handleText(node);
             break;
     }
