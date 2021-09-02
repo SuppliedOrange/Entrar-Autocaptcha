@@ -18,15 +18,20 @@ function walk(node) {
             break;
     }
 }
+
 function handleText(textNode) {
     var v = textNode.nodeValue;
     if (v.includes('eval')) return; // entrar has this in its code on top of the captcha
     let x = v.indexOf('+')
     if (x == -1) return;
     x = v.slice(x - 2, x + 3);
+    
+    // x will be 'number + number'
+    // example: '9 + 10'
+    // also note, the way i wrote this works for single digits because entrar didn't add double digits yet
 
     console.log((x[0]) + ' will be added to ' + (x[4]));
-    let errormsg = 'Entrar Autocaptcha ran into an error. Please report this to blackandantiqual@gmail.com or Doog#5101 on Discord'
+    let errormsg = 'Entrar Autocaptcha ran into an error. If you think this was not supposed to happen, report this to blackandantiqual@gmail.com or Doog#5101 on Discord'
 
     let add1 = parseInt(x[0])
     let add2 = parseInt(x[4])
