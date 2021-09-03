@@ -28,7 +28,7 @@ function handleText(textNode) {
     x = v.slice(x - 2, x + 3);
     
     // x will be 'number + number'
-    // example: '9 + 9'
+    // example: '9 + 4'
     // also note, the way i wrote this works for single digits because entrar didn't add double digits yet
 
     console.log((x[0]) + ' will be added to ' + (x[4]));
