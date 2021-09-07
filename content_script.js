@@ -6,7 +6,7 @@ function walk(node) {
             
         // You can find the nodeTypes here if u wanna know what these mean: https://developer.mozilla.org/en-US/docs/Web/API/Node/nodeType
             
-        case 1: // Since it is inside a <div>, we have to use nodeType 1 to convert it
+        case 1: // Since it is inside a <div> its a nodeType 1. So we use look inside the <div> again with walk(). while a firstChild exists, we walk() through the firstChild too, then we set the child to next sibling and so on until there is no child left. in case we hit plain text, the required operations are performed.
             child = node.firstChild;
             while (child) {
                 next = child.nextSibling;
