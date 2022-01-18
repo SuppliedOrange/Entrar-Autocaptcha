@@ -6,7 +6,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://entrar.in/login/login"
+                "https://entrar.in/login/*"
             ],
             "js": [
                 "content_script.js"
