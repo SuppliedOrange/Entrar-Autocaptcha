@@ -26,7 +26,7 @@ function findCaptchaElement() { // Returns the values of the captcha, if found.
        "Captcha could not be matched by RegEx",
        "The extension was unable to confirm that the captcha is in the form of addition \"x + y =\""
    )
-    return (captchaString.length) ? captchaString : null;
+    return captchaString;
 }
 
 function solveCaptcha(values) { // Solves the captcha.
