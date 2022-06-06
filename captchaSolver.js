@@ -22,7 +22,7 @@ function findCaptchaElement() { // Returns the values of the captcha, if found.
     * [1] = "2"
     * [2] = "4"
     */
-   if (!captchaString) return new hitError(
+   if (!captchaString) return new hitError( // Error if RegEx fails.
        "Captcha could not be matched by RegEx",
        "The extension was unable to confirm that the captcha is in the form of addition \"x + y =\""
    )
@@ -33,7 +33,7 @@ function solveCaptcha(values) { // Solves the captcha.
     values.first_number = parseInt(values.first_number), values.second_number = parseInt(values.second_number); // Convert both values to integer
 
     if (typeof values.first_number != "number" || typeof values.second_number != "number") return new hitError( // Error if one of the values are not a number.
-        `Expected number.\nValues: ${(typeof values.first_number).toString()} - ${values.first_number} and ${(typeof values.second_number).toString()} - ${values.second_number}`,
+        `Expected number.\nValues: ${typeof values.first_number} - ${values.first_number} and ${typeof values.second_number} - ${values.second_number}`,
         "While adding the numbers, the conversion process of text to numbers failed."
     )
     return values.first_number + values.second_number; // Return the added value.
@@ -52,6 +52,7 @@ function startCaptchaSolving() { // Captcha Solving Process
     if (solved instanceof hitError) return solved.logError(); // If it hits an error, log error.
 
     const element = document.getElementById("captcha"); // Get the captcha textbox element
+    if (!element) return new hitError("Could not find element with ID \"captcha\"", "The extension was unable to find the captcha box").logError(); // If textbox is not found, log error.
     element.value = solved; // And update it with the solved value.
 }
 
