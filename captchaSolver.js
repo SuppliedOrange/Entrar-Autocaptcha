@@ -22,11 +22,20 @@ function findCaptchaElement() { // Returns the values of the captcha, if found.
     * [1] = "2"
     * [2] = "4"
     */
-   if (!captchaString) return new hitError( // Error if RegEx fails.
-       "Captcha could not be matched by RegEx",
-       "The extension was unable to confirm that the captcha is in the form of addition \"x + y =\""
-   )
+    if (!captchaString) return new hitError( // Error if RegEx fails.
+        "Captcha could not be matched by RegEx",
+        "The extension was unable to confirm that the captcha is in the form of addition \"x + y =\""
+    )
     return captchaString;
+}
+
+function findCaptchaInputBox() {
+    const element = document.getElementById("captcha"); // Attempt to get the captcha textbox element
+    if (!element) return new hitError(
+        "Could not get captcha by class name",
+        "The extension was unable to find the captcha input-box on the page, but the captcha was solved."
+    )
+    return element;
 }
 
 function solveCaptcha(values) { // Solves the captcha.
@@ -40,7 +49,7 @@ function solveCaptcha(values) { // Solves the captcha.
 }
 
 function startCaptchaSolving() { // Captcha Solving Process
-    let captchaString = findCaptchaElement(); // The element is first looked for.
+    let captchaString = findCaptchaElement(); // The captcha element is first looked for.
     if (captchaString instanceof hitError) return captchaString.logError(); // If it hits an error, log error.
 
     let values = {
@@ -51,9 +60,9 @@ function startCaptchaSolving() { // Captcha Solving Process
     let solved = solveCaptcha(values); // The captcha is solved
     if (solved instanceof hitError) return solved.logError(); // If it hits an error, log error.
 
-    const element = document.getElementById("captcha"); // Get the captcha textbox element
-    if (!element) return new hitError("Could not find element with ID \"captcha\"", "The extension was unable to find the captcha box").logError(); // If textbox is not found, log error.
-    element.value = solved; // And update it with the solved value.
+    const captchaInputBoxElement = findCaptchaInputBox(); // Get the captcha textbox element
+    if (captchaInputBoxElement instanceof hitError) return captchaInputBoxElement.logError(); // If it hits an error, log error.
+    captchaInputBoxElement.value = solved; // And update it with the solved value.
 }
 
 startCaptchaSolving(); // Start!
